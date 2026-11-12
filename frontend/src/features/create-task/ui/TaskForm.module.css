@@ -1,0 +1,43 @@
+.formWrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #7c879d;
+    margin-bottom: 16px;
+}
+
+.submitButton {
+    grid-column: 2;
+    justify-self: end;
+    color: #fff;
+    background-color: #6754e8;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.formField {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.formField > * {
+    border: 1px solid #e8ebf2;
+    padding: 16px;
+    border-radius: 10px;
+    font-weight: 400;
+}

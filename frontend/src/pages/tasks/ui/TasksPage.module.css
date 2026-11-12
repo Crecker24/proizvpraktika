@@ -1,0 +1,11 @@
+.page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+    color: #18213a;
+    font-family: Arial, sans-serif;
+}
+
+.subtitle {
+    color: #7c879d;
+}
