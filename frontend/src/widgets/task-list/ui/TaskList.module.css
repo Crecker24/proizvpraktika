@@ -1,0 +1,138 @@
+.titleWrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 36px;
+}
+
+.countOfTask {
+    padding: 8px;
+    background-color: #f0eeff;
+    color: #6754e8;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.title {
+    font-size: 24px;
+}
+
+.tableHeader,
+.taskRow {
+    display: grid;
+    grid-template-columns: minmax(240px, 2fr) 1fr 1fr 32px;
+    align-items: center;
+}
+
+.tableHeader {
+    margin-bottom: 16px;
+    color: #7c879d;
+    font-weight: 600;
+}
+
+.taskList {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.taskRow {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-top: 1px solid #c1c3ca;
+}
+
+.taskInfo {
+    display: grid;
+    gap: 4px;
+}
+
+.taskTitle {
+    font-weight: 700;
+}
+
+.taskDescription {
+    color: #7c879d;
+    font-size: 14px;
+}
+
+.statusSelect {
+    appearance: none;
+    min-width: 130px;
+    padding: 8px 32px 8px 12px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background-color: #f6f7fb;
+    color: #18213a;
+    font: inherit;
+    cursor: pointer;
+}
+
+.statusControl {
+    position: relative;
+    width: fit-content;
+}
+
+.statusSelect:hover {
+    border-color: #dfe2ec;
+}
+
+.statusSelect:focus-visible {
+    outline: 2px solid #6754e8;
+    outline-offset: 2px;
+}
+
+.chevron {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 7px;
+    height: 7px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg);
+    pointer-events: none;
+}
+
+.deleteButton {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.closeIcon {
+  position: relative;
+  width: 14px;
+  height: 14px;
+}
+
+.closeIcon::before,
+.closeIcon::after {
+  position: absolute;
+  top: 6px;
+  left: 0;
+  width: 14px;
+  height: 2px;
+  border-radius: 1px;
+  background: #7c879d;
+  content: '';
+}
+
+.closeIcon::before {
+  transform: rotate(45deg);
+}
+
+.closeIcon::after {
+  transform: rotate(-45deg);
+}
+
+.zeroTask {
+    font-size: 32px;
+    font-weight: 700;
+}

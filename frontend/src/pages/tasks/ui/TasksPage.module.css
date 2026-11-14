@@ -9,3 +9,12 @@
 .subtitle {
     color: #7c879d;
 }
+
+.errorMessage {
+    margin: 16px 0;
+    padding: 12px 16px;
+    border: 1px solid #f2c6cb;
+    border-radius: 8px;
+    background: #fff0f0;
+    color: #a63f4c;
+}
