@@ -22,6 +22,7 @@
 .taskRow {
     display: grid;
     grid-template-columns: minmax(240px, 2fr) 1fr 1fr 32px;
+    gap: 32px;
     align-items: center;
 }
 
@@ -55,6 +56,8 @@
 .taskDescription {
     color: #7c879d;
     font-size: 14px;
+    white-space: normal;
+    overflow-wrap: anywhere;
 }
 
 .statusSelect {

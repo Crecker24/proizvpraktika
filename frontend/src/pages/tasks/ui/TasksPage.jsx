@@ -2,6 +2,12 @@ import styles from './TasksPage.module.css'
 import TaskForm from '../../../features/create-task/ui/TaskForm'
 import TaskList from '../../../widgets/task-list/ui/TaskList'
 import Container from '../../../shared/ui/container/Container'
+import {
+    createTask,
+    deleteTask,
+    getTasks,
+    updateTaskStatus,
+} from '../../../entities/task/api/tasksApi'
 import { useEffect, useState } from 'react'
 
 function TasksPage() {
@@ -13,11 +19,9 @@ function TasksPage() {
     useEffect(() => {
       async function loadTasks() {
         try {
-          const response = await fetch('/tasks')
-          if (!response.ok) throw new Error('Не удалось загрузить задачи')
-          setTasks(await response.json())
+          setTasks(await getTasks())
         } catch (err) {
-          setError(err.message || 'Не удалось связаться с сервером')
+          setError(err.message)
         } finally {
           setIsLoading(false)
         }
@@ -29,19 +33,13 @@ function TasksPage() {
     async function handleStatusChange(id, status) {
         setError('')
         try {
-          const response = await fetch(`/tasks/${id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ status }),
-          })
-          const result = await response.json()
-          if (!response.ok) throw new Error(result.error || 'Не удалось изменить статус')
+          const updatedTask = await updateTaskStatus(id, status)
 
           setTasks((currentTasks) =>
-            currentTasks.map((task) => (task.id === id ? result : task))
+            currentTasks.map((task) => (task.id === id ? updatedTask : task))
           )
         } catch (err) {
-          setError(err.message || 'Не удалось связаться с сервером')
+          setError(err.message)
         }
     }
 
@@ -49,18 +47,12 @@ function TasksPage() {
         setError('')
         setIsCreating(true)
         try {
-          const response = await fetch('/tasks', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(taskData),
-          })
-          const result = await response.json()
-          if (!response.ok) throw new Error(result.error || 'Не удалось создать задачу')
+          const createdTask = await createTask(taskData)
 
-          setTasks((currentTasks) => [...currentTasks, result])
+          setTasks((currentTasks) => [...currentTasks, createdTask])
           return true
         } catch (err) {
-          setError(err.message || 'Не удалось связаться с сервером')
+          setError(err.message)
           return false
         } finally {
           setIsCreating(false)
@@ -70,14 +62,10 @@ function TasksPage() {
     async function handleDelete(id) {
       setError('')
       try {
-        const response = await fetch(`/tasks/${id}`, { method: 'DELETE' })
-        if (!response.ok) {
-          const result = await response.json()
-          throw new Error(result.error || 'Не удалось удалить задачу')
-        }
+        await deleteTask(id)
         setTasks((currentTasks) => currentTasks.filter((task) => task.id !== id))
       } catch (err) {
-        setError(err.message || 'Не удалось связаться с сервером')
+        setError(err.message)
       }
     }
 
@@ -88,25 +76,28 @@ function TasksPage() {
 
             {error && <p className={styles.errorMessage} role="alert">{error}</p>}
 
-            <section>
-                <Container>
-                    <TaskForm
-                        onCreateTask={handleCreateTask}
-                        isSubmitting={isCreating}
-                    />
-                </Container>
-            </section>
+            <div className={styles.mainContentWrapper}>
 
-            <section>
-                <Container>
-                    <TaskList
-                        tasks={tasks}
-                        isLoading={isLoading}
-                        onStatusChange={handleStatusChange}
-                        onDelete={handleDelete}
-                    />
-                </Container>
-            </section>
+                <section>
+                    <Container>
+                        <TaskForm
+                            onCreateTask={handleCreateTask}
+                            isSubmitting={isCreating}
+                        />
+                    </Container>
+                </section>
+
+                <section>
+                    <Container>
+                        <TaskList
+                            tasks={tasks}
+                            isLoading={isLoading}
+                            onStatusChange={handleStatusChange}
+                            onDelete={handleDelete}
+                        />
+                    </Container>
+                </section>
+            </div>
         </main>
     )
 }

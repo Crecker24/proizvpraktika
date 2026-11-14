@@ -8,6 +8,17 @@
 
 .subtitle {
     color: #7c879d;
+    margin-bottom: 24px;
+}
+
+section {
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+.mainContentWrapper {
+    display: grid;
+    gap: 32px;
 }
 
 .errorMessage {
