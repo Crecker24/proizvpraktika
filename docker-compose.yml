@@ -1,0 +1,44 @@
+services:
+  database:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: task_manager
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: local_task_manager_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - task-manager-data:/var/lib/postgresql/data
+      - ./database/001_create_tasks.sql:/docker-entrypoint-initdb.d/001_create_tasks.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d task_manager"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    environment:
+      PORT: 3000
+      DB_HOST: database
+      DB_PORT: 5432
+      DB_NAME: task_manager
+      DB_USER: postgres
+      DB_PASSWORD: local_task_manager_password
+    ports:
+      - "3001:3000"
+    depends_on:
+      database:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    environment:
+      API_PROXY_TARGET: http://backend:3000
+    ports:
+      - "5174:5173"
+    depends_on:
+      - backend
+
+volumes:
+  task-manager-data:
