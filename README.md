@@ -11,7 +11,7 @@
 - `backend/src/tasks/tasks.controller.js` обрабатывает запросы и отправляет ответы.
 - `backend/src/tasks/tasks.repository.js` выполняет команды к базе данных.
 - `backend/package.json` и `backend/package-lock.json` нужны для зависимостей backend.
-- `backend/.env` хранит настройки PostgreSQL. В Git этот файл не добавляется.
+- `backend/.env` хранит настройки PostgreSQL.
 - `backend/Dockerfile` описывает запуск backend в Docker.
 - `backend/.dockerignore` исключает лишние файлы при сборке backend.
 - `database/001_create_tasks.sql` создаёт таблицу задач.
